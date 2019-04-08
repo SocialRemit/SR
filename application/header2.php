@@ -9,6 +9,8 @@
 } else {
 	document.cookie = 'lang=en'
 }
+
+var idioma = navigator.language || navigator.userLanguage;
     </script>
 
 <!-- Global site tag (gtag.js) - Google Analytics -->
@@ -28,19 +30,30 @@ $flag_img = '';
 header('Content-Type: text/html; charset=utf-8' );
 ini_set('default_charset', 'utf-8');
 
-//$lang = substr($_SERVER['HTTP_ACCEPT_LANGUAGE'], 0, 2);
-
 if (isset($_GET['lang'])){
 	$lang = $_GET['lang'];
 }else{
-	$lang = 'es';
+	if (isset($_SERVER['HTTP_ACCEPT_LANGUAGE'])){
+        $lang = $_SERVER['HTTP_ACCEPT_LANGUAGE'];
+        if (strcmp(substr($lang,0,5), "en-US")==0){
+            $lang = "us";
+        }else {
+            $lang = substr($lang, 0, 2);
+        }
+    }else{
+        $lang = 'en';
+
+    }
 }
 
-//$lang = trim(isset($_COOKIE['lang'])? $_COOKIE['lang'] : 'en');
-//$lang = 'es';
 switch ($lang){
+    case "us":
+        include("lang/us.php");
+        $lbl_lang = 'English';
+        $flag_img = '/assets/flags/1x1/um.svg';
+        break;
     case "en":
-        include("lang/en-US.php");
+        include("lang/en.php");
         $lbl_lang = 'English';
         $flag_img = '/assets/flags/1x1/gb.svg';
         break;   
@@ -170,6 +183,7 @@ switch ($lang){
         $flag_img = '/assets/flags/1x1/gb.svg';
         break;
 }
+
 ?>
 
 	<meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
@@ -205,9 +219,6 @@ switch ($lang){
 	    font-family: 'fontAwesome';
 
 	}
-    .lang-switch .switch-pan{
-        box-shadow: none;
-    }
 
 	</style>
 <body>
@@ -238,32 +249,23 @@ switch ($lang){
                 <a  class="closebtn" onclick="menu()">&times;</a>
 <!--            <div class="overlay-content">-->
 <!--                <div>-->
-                <a href="#chng_name" class="nav-link"><span>Comunicado</span></a>
-                <a href="#spec_camp" class="nav-link"><span>Campaña especial</span></a>
                 <a href="/?lang=<?php echo $lang ?>" class="nav-link"><span><?= $t['sr_home'] ?></span></a>
-                <!--<a href="frmSpecial.php" class="nav-link"><span><?= $t['register'] ?></span></a>-->
+                <a href="#cons" class="nav-link"><span><?= $t['cons'] ?></span></a>
+		<a href="#dev" class="nav-link"><span><?= $t['dev'] ?></span></a>
+                <a href="#mkt" class="nav-link"><span><?= $t['mkt'] ?></span></a>
+                <a href="#comm" class="nav-link"><span><?= $t['comm'] ?></span></a>
+                <a href="news.php?lang=<?php echo $lang?>" class="nav-link"><span><?= $t['news'] ?></span></a>
+
+<!--                <a href="/forum" class="nav-link"><span>--><?//= $t['n_community'] ?><!--</span></a>-->
+                <a href="/#contact" class="nav-link"><span><?= $t['contact'] ?></span></a>
 <!--                </div>-->
             </div>
 	    </div>
         <div class="lang-switch">
             <div class="switch-pan">
-                <img id="langswitch" src="<?php echo $flag_img ?>" style="max-height:16px;max-width:auto;">&nbsp;
-                <a href="#" id="langswitchn"><span><?php echo $lbl_lang ?> </span></a>&nbsp;
-                <img id="langswitchw" src="mundo.png" style="max-height:16px;max-width:auto;">
+                
             </div>
         </div>
-
-        <script>
-            $("#langswitch").click(function(){
-                window.open("languaje.php","_self");
-            });
-            $("#langswitchn").click(function(){
-                window.open("languaje.php","_self");
-            })
-            $("#langswitchw").click(function(){
-                window.open("languaje.php","_self");
-            })
-        </script>
     </nav>
 
 

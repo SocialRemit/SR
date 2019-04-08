@@ -1,14 +1,13 @@
 <!DOCTYPE html>
 <html>
 <head>
-
     <script>
 
       if(document.cookie.indexOf("lang") > 0){
-	document.cookie = document.cookie.substring(document.cookie.indexOf("lang")+5);
-} else {
-	document.cookie = 'lang=en'
-}
+		document.cookie = document.cookie.substring(document.cookie.indexOf("lang")+5);
+	} else {
+		document.cookie = 'lang=en'
+	}
     </script>
 
 <!-- Global site tag (gtag.js) - Google Analytics -->
@@ -22,152 +21,98 @@
 
 <?php
 
-$lbl_lang = '';
-$flag_img = '';
-
 header('Content-Type: text/html; charset=utf-8' );
 ini_set('default_charset', 'utf-8');
 
-//$lang = substr($_SERVER['HTTP_ACCEPT_LANGUAGE'], 0, 2);
 
 if (isset($_GET['lang'])){
 	$lang = $_GET['lang'];
 }else{
-	$lang = 'es';
+    if (isset($_SERVER['HTTP_ACCEPT_LANGUAGE'])){
+        $lang = substr($_SERVER['HTTP_ACCEPT_LANGUAGE'], 0, 2);
+    }else{
+        $lang = 'en';
+    }
 }
 
-//$lang = trim(isset($_COOKIE['lang'])? $_COOKIE['lang'] : 'en');
-//$lang = 'es';
 switch ($lang){
     case "en":
         include("lang/en-US.php");
-        $lbl_lang = 'English';
-        $flag_img = '/assets/flags/1x1/gb.svg';
         break;   
     case "es":
         include("lang/es.php");
-        $lbl_lang = 'Español';
-        $flag_img = '/assets/flags/1x1/es.svg';
         break;
     case "id":
         include("lang/id.php");
-        $lbl_lang = 'Bahasa Indonesia';
-        $flag_img = '/assets/flags/1x1/id.svg';
         break;   
     case "de":
         include("lang/de.php");
-        $lbl_lang = 'Deutsch';
-        $flag_img = '/assets/flags/1x1/de.svg';
         break;
     case "it":
         include("lang/it.php");
-        $lbl_lang = 'Italiano';
-        $flag_img = '/assets/flags/1x1/it.svg';
         break;   
     case "pt":
         include("lang/pt.php");
-        $lbl_lang = 'Português';
-        $flag_img = '/assets/flags/1x1/pt.svg';
         break;
     case "vn":
         include("lang/vn.php");
-        $lbl_lang = 'Tiếng Việt';
-        $flag_img = '/assets/flags/1x1/vn.svg';
         break;
     case "vi":
         include("lang/vn.php");
-        $lbl_lang = 'Tiếng Việt';
-        $flag_img = '/assets/flags/1x1/vn.svg';
         break;   
     case "ru":
         include("lang/ru.php");
-        $lbl_lang = 'Русский';
-        $flag_img = '/assets/flags/1x1/ru.svg';
         break;
     case "cn":
         include("lang/cn.php");
-        $lbl_lang = '简体中文';
-        $flag_img = '/assets/flags/1x1/cn.svg';
         break;
     case "zh":
         include("lang/cn.php");
-        $lbl_lang = '简体中文';
-        $flag_img = '/assets/flags/1x1/cn.svg';
         break;
     case "jp":
         include("lang/jp.php");
-        $lbl_lang = '日本語';
-        $flag_img = '/assets/flags/1x1/jp.svg';
         break;
     case "ja":
         include("lang/jp.php");
-        $lbl_lang = '日本語';
-        $flag_img = '/assets/flags/1x1/jp.svg';
         break;
     case "kr":
         include("lang/kr.php");
-        $lbl_lang = '한국어';
-        $flag_img = '/assets/flags/1x1/kr.svg';
         break;
     case "ko";
         include("lang/kr.php");
-        $lbl_lang = '한국어';
-        $flag_img = '/assets/flags/1x1/kr.svg';
         break;
     case "ir":
         include("lang/ir.php");
-        $lbl_lang = 'فارسی';
-        $flag_img = '/assets/flags/1x1/ir.svg';
         break;
     case "fa":
         include("lang/ir.php");
-        $lbl_lang = 'فارسی';
-        $flag_img = '/assets/flags/1x1/ir.svg';
         break;
     case "gr":
         include("lang/gr.php");
-        $lbl_lang = 'Ελληνικά';
-        $flag_img = '/assets/flags/1x1/gr.svg';
         break;
     case "el";
         include("lang/gr.php");
-        $lbl_lang = 'Ελληνικά';
-        $flag_img = '/assets/flags/1x1/gr.svg';
         break; 
     case "sa":
         include("lang/sa.php");
-        $lbl_lang = 'اللغة العربية';
-        $flag_img = '/assets/flags/1x1/sa.svg';
         break;
     case "ar":
         include("lang/sa.php");
-        $lbl_lang = 'اللغة العربية';
-        $flag_img = '/assets/flags/1x1/sa.svg';
         break;
     case "tr":
         include("lang/tr.php");
-        $lbl_lang = 'Türkçe';
-        $flag_img = '/assets/flags/1x1/tr.svg';
         break;
     case "fr":
         include("lang/fr.php");
-        $lbl_lang = 'Français';
-        $flag_img = '/assets/flags/1x1/fr.svg';
         break;
     case "ua":
         include("lang/uk.php");
-        $lbl_lang = 'Українська';
-        $flag_img = '/assets/flags/1x1/ua.svg';
         break;
     case "uk";
         include("lang/uk.php");
-        $lbl_lang = 'Українська';
-        $flag_img = '/assets/flags/1x1/ua.svg';
         break;
     default:
         require("lang/en-US.php");
-        $lbl_lang = 'English';
-        $flag_img = '/assets/flags/1x1/gb.svg';
         break;
 }
 ?>
@@ -199,15 +144,29 @@ switch ($lang){
 	  width:80%;
 	  position: relative;
 	}
+	
 	.owl-carousel .owl-nav .owl-prev,
 	  .owl-carousel .owl-nav .owl-next,
 	  .owl-carousel .owl-dot {
 	    font-family: 'fontAwesome';
-
 	}
-    .lang-switch .switch-pan{
-        box-shadow: none;
-    }
+
+.nav-link:last-child span {
+    padding: 1vw  2vw;
+    border-radius: 15px;
+	font-size: .8vw;
+    color: #ffffff;
+    background: -webkit-linear-gradient(to right, #f00, #FE7878);
+    background: -moz-linear-gradient(to right, #f00, #FE7878);
+    background: -o-linear-gradient(to right, #f00, #FE7878);
+    background: linear-gradient(to right, #f00, #FE7878);
+}
+.nav-link:last-child span:hover {
+    background: -webkit-linear-gradient(to right, #FA3030, #FE7878);
+    background: -moz-linear-gradient(to right, #FA3030, #FE7878);
+    background: -o-linear-gradient(to right, #FA3030, #FE7878);
+    background: linear-gradient(to right, #FA3030, #FE7878);
+}
 
 	</style>
 <body>
@@ -224,46 +183,72 @@ switch ($lang){
 <li style="cursor: pointer;"class="hidden-social-btn" onclick="showHideIcons()"><a style="color: #d63330;cursor:pointer"><em class="fa fa-angle-double-down"></em></a></li>
 </ul>
 	<nav class="flex" id="nav">
-
-
 		<div class="wrapper flex animated fadeInDown d065">
 
-		<a href="/?lang=<?php echo $lang ?>" class="logo"><img src="assets/logo.png" alt="SocialRemit"></a>
+		<a href="/?lang=<?php echo $lang?>" class="logo"><img src="assets/logo.png" alt="SocialRemit"></a>
 		<a class="icon" onclick="menu()" style="margin-left: 15%;">
 				<i class="fa fa-bars fa-fw fa-2x"></i>
 		</a>
 		</div>
         <div class="social-nav-list" style="width: 70%;">
+            <div id="lang-menu" class="flex animated fadeInDown d075 overlay1 onemenu">
+                <a  class="closebtn" onclick="menu()">&times;</a>
+
+                <a href="/?lang=<?php echo $lang?>#about" class="nav-link"><span>Idioma 1</span></a>
+                <a href="/?lang=<?php echo $lang?>#choose" class="nav-link"><span>Idioma 2</span></a>
+                <a href="consulting.php?lang=<?php echo $lang ?>" class="nav-link"><span>Idioma 3</span></a>
+                <a href="/whitepaper.php?lang=<?php echo $lang?>" class="nav-link"><span>Idioma 4</span></a>
+                <a href="/airdrop.php?lang=<?php echo $lang?>" class="nav-link"><span>Idioma 5</span></a>
+                <a href="/?lang=<?php echo $lang?>#token" class="nav-link"><span>Idioma 6</span></a>
+                <a href="/?lang=<?php echo $lang?>#wallet" class="nav-link"><span>Idioma 7</span></a>
+                <a href="/?lang=<?php echo $lang?>#team" class="nav-link"><span>Idioma 8</span></a>
+                <a href="news.php?lang=<?php echo $lang ?>" class="nav-link"><span>Idioma 9</span></a>
+                <a href="/?lang=<?php echo $lang?>#faq" class="nav-link" style="display: none;"><span>Idioma 10</span></a>
+        
+            </div>
+
+
 		    <div id="nav-menu" class="flex animated fadeInDown d075 overlay1 onemenu">
                 <a  class="closebtn" onclick="menu()">&times;</a>
-<!--            <div class="overlay-content">-->
-<!--                <div>-->
-                <a href="#chng_name" class="nav-link"><span>Comunicado</span></a>
-                <a href="#spec_camp" class="nav-link"><span>Campaña especial</span></a>
-                <a href="/?lang=<?php echo $lang ?>" class="nav-link"><span><?= $t['sr_home'] ?></span></a>
-                <!--<a href="frmSpecial.php" class="nav-link"><span><?= $t['register'] ?></span></a>-->
-<!--                </div>-->
+
+                <a href="/?lang=<?php echo $lang?>#about" class="nav-link"><span><?= $t['n_the company'] ?></span></a>
+                <a href="/?lang=<?php echo $lang?>#choose" class="nav-link"><span><?= $t['n_whyhow'] ?></span></a>
+				<a href="consulting.php?lang=<?php echo $lang ?>" class="nav-link"><span><?= $t['consulting'] ?></span></a>
+                <a href="/whitepaper.php?lang=<?php echo $lang?>" class="nav-link"><span><?= $t['whitepaper_menu'] ?></span></a>
+                <a href="/airdrop.php?lang=<?php echo $lang?>" class="nav-link"><span><?= $t['n_airdrop'] ?></span></a>
+                <a href="/?lang=<?php echo $lang?>#token" class="nav-link"><span><?= $t['n_tokens'] ?></span></a>
+                <a href="/?lang=<?php echo $lang?>#wallet" class="nav-link"><span><?= $t['sec_icowallet'] ?></span></a>
+                <a href="/?lang=<?php echo $lang?>#team" class="nav-link"><span><?= $t['n_team'] ?></span></a>
+                <a href="news.php?lang=<?php echo $lang ?>" class="nav-link"><span><?= $t['news'] ?></span></a>
+                <a href="/?lang=<?php echo $lang?>#faq" class="nav-link"><span><?= $t['n_faq'] ?></span></a>
+		
+                <a href="/login?redirect=ico-purchase" class="nav-link"><span><?= $t['buynow_button'] ?></span></a>
             </div>
+
 	    </div>
         <div class="lang-switch">
             <div class="switch-pan">
-                <img id="langswitch" src="<?php echo $flag_img ?>" style="max-height:16px;max-width:auto;">&nbsp;
-                <a href="#" id="langswitchn"><span><?php echo $lbl_lang ?> </span></a>&nbsp;
-                <img id="langswitchw" src="mundo.png" style="max-height:16px;max-width:auto;">
-            </div>
-        </div>
+				<img id="langswitch" src="imgs/mundo.png" style="max-height:64px;max-width:auto;">
+            		</div>
+        	</div>
 
-        <script>
-            $("#langswitch").click(function(){
-                window.open("languaje.php","_self");
-            });
-            $("#langswitchn").click(function(){
-                window.open("languaje.php","_self");
-            })
-            $("#langswitchw").click(function(){
-                window.open("languaje.php","_self");
-            })
-        </script>
+        	<form id="redirect" method="post">
+			<input type="hidden" id="lang" name="lang">
+		</form>
+        <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.3.1/jquery.min.js"></script>
+		<script type="text/javascript" src="js/jquery.ddslick.min.js" ></script>
+		<script>
+			$("#languajes").change(function(){
+				$("#lang").val($(this).val());
+				$("#redirect").submit();
+			});	
+		</script>
+
+		<script>
+			$("#langswitch").click(function(){
+				window.open("languaje.php","_self");
+			});
+		</script>
     </nav>
 
 

@@ -1,14 +1,16 @@
 <!DOCTYPE html>
 <html>
 <head>
-
     <script>
 
-      if(document.cookie.indexOf("lang") > 0){
-	document.cookie = document.cookie.substring(document.cookie.indexOf("lang")+5);
-} else {
-	document.cookie = 'lang=en'
-}
+    
+    if(document.cookie.indexOf("lang") > 0){
+		document.cookie = document.cookie.substring(document.cookie.indexOf("lang")+5);
+	} else {
+		document.cookie = 'lang=en'
+	}
+    
+    var idioma = navigator.language || navigator.userLanguage;
     </script>
 
 <!-- Global site tag (gtag.js) - Google Analytics -->
@@ -28,19 +30,31 @@ $flag_img = '';
 header('Content-Type: text/html; charset=utf-8' );
 ini_set('default_charset', 'utf-8');
 
-//$lang = substr($_SERVER['HTTP_ACCEPT_LANGUAGE'], 0, 2);
 
 if (isset($_GET['lang'])){
 	$lang = $_GET['lang'];
 }else{
-	$lang = 'es';
+    if (isset($_SERVER['HTTP_ACCEPT_LANGUAGE'])){
+        $lang = $_SERVER['HTTP_ACCEPT_LANGUAGE'];
+        if (strcmp(substr($lang,0,5), "en-US")==0){
+            $lang = "us";
+        }else {
+            $lang = substr($lang, 0, 2);
+        }
+    }else{
+        $lang = 'en';
+
+    }
 }
 
-//$lang = trim(isset($_COOKIE['lang'])? $_COOKIE['lang'] : 'en');
-//$lang = 'es';
 switch ($lang){
+    case "us":
+        include("lang/us.php");
+        $lbl_lang = 'English';
+        $flag_img = '/assets/flags/1x1/um.svg';
+        break;
     case "en":
-        include("lang/en-US.php");
+        include("lang/en.php");
         $lbl_lang = 'English';
         $flag_img = '/assets/flags/1x1/gb.svg';
         break;   
@@ -199,15 +213,34 @@ switch ($lang){
 	  width:80%;
 	  position: relative;
 	}
+	
 	.owl-carousel .owl-nav .owl-prev,
 	  .owl-carousel .owl-nav .owl-next,
 	  .owl-carousel .owl-dot {
 	    font-family: 'fontAwesome';
-
 	}
-    .lang-switch .switch-pan{
-        box-shadow: none;
-    }
+
+.nav-link:last-child span {
+    padding: 1vw  2vw;
+    border-radius: 15px;
+	font-size: .8vw;
+    color: #ffffff;
+    background: -webkit-linear-gradient(to right, #f00, #FE7878);
+    background: -moz-linear-gradient(to right, #f00, #FE7878);
+    background: -o-linear-gradient(to right, #f00, #FE7878);
+    background: linear-gradient(to right, #f00, #FE7878);
+}
+.nav-link:last-child span:hover {
+    background: -webkit-linear-gradient(to right, #FA3030, #FE7878);
+    background: -moz-linear-gradient(to right, #FA3030, #FE7878);
+    background: -o-linear-gradient(to right, #FA3030, #FE7878);
+    background: linear-gradient(to right, #FA3030, #FE7878);
+}
+
+.lang-switch .switch-pan{
+	box-shadow: none;
+	
+}
 
 	</style>
 <body>
@@ -224,11 +257,9 @@ switch ($lang){
 <li style="cursor: pointer;"class="hidden-social-btn" onclick="showHideIcons()"><a style="color: #d63330;cursor:pointer"><em class="fa fa-angle-double-down"></em></a></li>
 </ul>
 	<nav class="flex" id="nav">
-
-
 		<div class="wrapper flex animated fadeInDown d065">
 
-		<a href="/?lang=<?php echo $lang ?>" class="logo"><img src="assets/logo.png" alt="SocialRemit"></a>
+		<a href="/?lang=<?php echo $lang?>" class="logo"><img src="assets/logo.png" alt="SocialRemit"></a>
 		<a class="icon" onclick="menu()" style="margin-left: 15%;">
 				<i class="fa fa-bars fa-fw fa-2x"></i>
 		</a>
@@ -238,12 +269,23 @@ switch ($lang){
                 <a  class="closebtn" onclick="menu()">&times;</a>
 <!--            <div class="overlay-content">-->
 <!--                <div>-->
-                <a href="#chng_name" class="nav-link"><span>Comunicado</span></a>
-                <a href="#spec_camp" class="nav-link"><span>Campaña especial</span></a>
-                <a href="/?lang=<?php echo $lang ?>" class="nav-link"><span><?= $t['sr_home'] ?></span></a>
-                <!--<a href="frmSpecial.php" class="nav-link"><span><?= $t['register'] ?></span></a>-->
+                <a href="/?lang=<?php echo $lang?>#about" class="nav-link"><span><?= $t['n_the company'] ?></span></a>
+                <a href="/?lang=<?php echo $lang?>#choose" class="nav-link"><span><?= $t['n_whyhow'] ?></span></a>
+				<a href="consulting.php?lang=<?php echo $lang ?>" class="nav-link"><span><?= $t['consulting'] ?></span></a>
+                <a href="/whitepaper.php?lang=<?php echo $lang?>" class="nav-link"><span><?= $t['whitepaper_menu'] ?></span></a>
+                <a href="/airdrop.php?lang=<?php echo $lang?>" class="nav-link"><span><?= $t['n_airdrop'] ?></span></a>
+                <a href="/?lang=<?php echo $lang?>#token" class="nav-link"><span><?= $t['n_tokens'] ?></span></a>
+                <a href="/?lang=<?php echo $lang?>" class="nav-link"><span><?= $t['sec_icowallet'] ?></span></a>
+                <a href="/?lang=<?php echo $lang?>#team" class="nav-link"><span><?= $t['n_team'] ?></span></a>
+                <a href="news.php?lang=<?php echo $lang ?>" class="nav-link"><span><?= $t['news'] ?></span></a>
+                <a href="/?lang=<?php echo $lang?>#faq" class="nav-link"><span><?= $t['n_faq'] ?></span></a>
+		
+<!--                <a href="/forum" class="nav-link"><span>--><?//= $t['n_community'] ?><!--</span></a>-->
+                <a href="/login?redirect=ico-purchase" class="nav-link"><span><?= $t['buynow_button'] ?></span></a>
 <!--                </div>-->
+		
             </div>
+
 	    </div>
         <div class="lang-switch">
             <div class="switch-pan">
@@ -253,17 +295,29 @@ switch ($lang){
             </div>
         </div>
 
-        <script>
-            $("#langswitch").click(function(){
-                window.open("languaje.php","_self");
-            });
+        <form id="redirect" method="post">
+			<input type="hidden" id="lang" name="lang">
+		</form>
+        <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.3.1/jquery.min.js"></script>
+		<script type="text/javascript" src="js/jquery.ddslick.min.js" ></script>
+		<script>
+			$("#languajes").change(function(){
+				$("#lang").val($(this).val());
+				$("#redirect").submit();
+			});	
+		</script>
+
+		<script>
+			$("#langswitch").click(function(){
+				window.open("languaje.php","_self");
+			});
             $("#langswitchn").click(function(){
                 window.open("languaje.php","_self");
             })
             $("#langswitchw").click(function(){
                 window.open("languaje.php","_self");
             })
-        </script>
+		</script>
     </nav>
 
 

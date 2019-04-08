@@ -22,9 +22,6 @@
 
 <?php
 
-$lbl_lang = '';
-$flag_img = '';
-
 header('Content-Type: text/html; charset=utf-8' );
 ini_set('default_charset', 'utf-8');
 
@@ -41,133 +38,48 @@ if (isset($_GET['lang'])){
 switch ($lang){
     case "en":
         include("lang/en-US.php");
-        $lbl_lang = 'English';
-        $flag_img = '/assets/flags/1x1/gb.svg';
         break;   
     case "es":
         include("lang/es.php");
-        $lbl_lang = 'Español';
-        $flag_img = '/assets/flags/1x1/es.svg';
         break;
     case "id":
         include("lang/id.php");
-        $lbl_lang = 'Bahasa Indonesia';
-        $flag_img = '/assets/flags/1x1/id.svg';
         break;   
     case "de":
         include("lang/de.php");
-        $lbl_lang = 'Deutsch';
-        $flag_img = '/assets/flags/1x1/de.svg';
         break;
     case "it":
         include("lang/it.php");
-        $lbl_lang = 'Italiano';
-        $flag_img = '/assets/flags/1x1/it.svg';
         break;   
     case "pt":
         include("lang/pt.php");
-        $lbl_lang = 'Português';
-        $flag_img = '/assets/flags/1x1/pt.svg';
         break;
     case "vn":
         include("lang/vn.php");
-        $lbl_lang = 'Tiếng Việt';
-        $flag_img = '/assets/flags/1x1/vn.svg';
-        break;
-    case "vi":
-        include("lang/vn.php");
-        $lbl_lang = 'Tiếng Việt';
-        $flag_img = '/assets/flags/1x1/vn.svg';
         break;   
     case "ru":
         include("lang/ru.php");
-        $lbl_lang = 'Русский';
-        $flag_img = '/assets/flags/1x1/ru.svg';
         break;
     case "cn":
         include("lang/cn.php");
-        $lbl_lang = '简体中文';
-        $flag_img = '/assets/flags/1x1/cn.svg';
-        break;
-    case "zh":
-        include("lang/cn.php");
-        $lbl_lang = '简体中文';
-        $flag_img = '/assets/flags/1x1/cn.svg';
-        break;
+        break;   
     case "jp":
         include("lang/jp.php");
-        $lbl_lang = '日本語';
-        $flag_img = '/assets/flags/1x1/jp.svg';
-        break;
-    case "ja":
-        include("lang/jp.php");
-        $lbl_lang = '日本語';
-        $flag_img = '/assets/flags/1x1/jp.svg';
         break;
     case "kr":
         include("lang/kr.php");
-        $lbl_lang = '한국어';
-        $flag_img = '/assets/flags/1x1/kr.svg';
-        break;
-    case "ko";
-        include("lang/kr.php");
-        $lbl_lang = '한국어';
-        $flag_img = '/assets/flags/1x1/kr.svg';
-        break;
+        break;   
     case "ir":
         include("lang/ir.php");
-        $lbl_lang = 'فارسی';
-        $flag_img = '/assets/flags/1x1/ir.svg';
-        break;
-    case "fa":
-        include("lang/ir.php");
-        $lbl_lang = 'فارسی';
-        $flag_img = '/assets/flags/1x1/ir.svg';
         break;
     case "gr":
         include("lang/gr.php");
-        $lbl_lang = 'Ελληνικά';
-        $flag_img = '/assets/flags/1x1/gr.svg';
-        break;
-    case "el";
-        include("lang/gr.php");
-        $lbl_lang = 'Ελληνικά';
-        $flag_img = '/assets/flags/1x1/gr.svg';
-        break; 
+        break;   
     case "sa":
         include("lang/sa.php");
-        $lbl_lang = 'اللغة العربية';
-        $flag_img = '/assets/flags/1x1/sa.svg';
-        break;
-    case "ar":
-        include("lang/sa.php");
-        $lbl_lang = 'اللغة العربية';
-        $flag_img = '/assets/flags/1x1/sa.svg';
-        break;
-    case "tr":
-        include("lang/tr.php");
-        $lbl_lang = 'Türkçe';
-        $flag_img = '/assets/flags/1x1/tr.svg';
-        break;
-    case "fr":
-        include("lang/fr.php");
-        $lbl_lang = 'Français';
-        $flag_img = '/assets/flags/1x1/fr.svg';
-        break;
-    case "ua":
-        include("lang/uk.php");
-        $lbl_lang = 'Українська';
-        $flag_img = '/assets/flags/1x1/ua.svg';
-        break;
-    case "uk";
-        include("lang/uk.php");
-        $lbl_lang = 'Українська';
-        $flag_img = '/assets/flags/1x1/ua.svg';
         break;
     default:
         require("lang/en-US.php");
-        $lbl_lang = 'English';
-        $flag_img = '/assets/flags/1x1/gb.svg';
         break;
 }
 ?>
@@ -205,9 +117,6 @@ switch ($lang){
 	    font-family: 'fontAwesome';
 
 	}
-    .lang-switch .switch-pan{
-        box-shadow: none;
-    }
 
 	</style>
 <body>
@@ -238,32 +147,16 @@ switch ($lang){
                 <a  class="closebtn" onclick="menu()">&times;</a>
 <!--            <div class="overlay-content">-->
 <!--                <div>-->
-                <a href="#chng_name" class="nav-link"><span>Comunicado</span></a>
-                <a href="#spec_camp" class="nav-link"><span>Campaña especial</span></a>
                 <a href="/?lang=<?php echo $lang ?>" class="nav-link"><span><?= $t['sr_home'] ?></span></a>
-                <!--<a href="frmSpecial.php" class="nav-link"><span><?= $t['register'] ?></span></a>-->
+                <a href="frmSpecial.php" class="nav-link"><span><?= $t['register'] ?></span></a>
 <!--                </div>-->
             </div>
 	    </div>
         <div class="lang-switch">
             <div class="switch-pan">
-                <img id="langswitch" src="<?php echo $flag_img ?>" style="max-height:16px;max-width:auto;">&nbsp;
-                <a href="#" id="langswitchn"><span><?php echo $lbl_lang ?> </span></a>&nbsp;
-                <img id="langswitchw" src="mundo.png" style="max-height:16px;max-width:auto;">
+                <img id="langswitch" src="imgs/mundo.png" style="max-height:64px;max-width:auto;">
             </div>
         </div>
-
-        <script>
-            $("#langswitch").click(function(){
-                window.open("languaje.php","_self");
-            });
-            $("#langswitchn").click(function(){
-                window.open("languaje.php","_self");
-            })
-            $("#langswitchw").click(function(){
-                window.open("languaje.php","_self");
-            })
-        </script>
     </nav>
 
 
